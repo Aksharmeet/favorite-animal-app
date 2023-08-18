@@ -1,0 +1,20 @@
+.form_response_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4vw;
+    background: var(--black-purple-gradient);
+    padding-block: 5vw;
+    width: 100vw;
+}
+.form_response_container_inner_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    padding: 3vw;
+    background: var(--tertiary-color);
+    box-shadow: 0 0 200px 2px var(--box-show-purple-glow);
+    border-radius: 10px;
+    width: 70vw;
+}

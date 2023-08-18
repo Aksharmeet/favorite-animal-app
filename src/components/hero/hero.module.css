@@ -1,0 +1,8 @@
+.heading_container{
+    margin-bottom: 20px;
+    text-align: center;
+}
+.heading_container h1{
+    font-size: 2rem;
+    font-weight: 600;
+}
