@@ -20,9 +20,23 @@ const index = () => {
       'assets/images/animal-11.jpeg',
     ],
   };
+
+  const submitEventHandler = async event => {
+    event.preventDefault();
+    const input = document.getElementById('animal');
+    const inputValue = input.value;
+    const link = `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_GOOGLE_SEARCH_KEY}&cx=${process.env.REACT_APP_CSE}&q=${inputValue}`;
+
+    try {
+      const { data } = await fetch(link);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <section className={classes.form_container}>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={e => submitEventHandler(e)}>
         <label htmlFor="animal" className={classes}>
           Write the name of your favorite animal
         </label>

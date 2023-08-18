@@ -39,6 +39,7 @@
   top:3px;
   right:5px;
   padding: 0;
+  cursor: pointer;
 }
 .form_submit img{
   width:40px;
