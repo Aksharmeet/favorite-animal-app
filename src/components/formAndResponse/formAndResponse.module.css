@@ -5,6 +5,7 @@
     gap: 4vw;
     background: var(--black-purple-gradient);
     width: 100%;
+    min-width: 80vw;
 }
 .form_response_container_inner_wrapper{
     display: flex;

@@ -1,25 +1,8 @@
 import { useContext, useState } from 'react';
-import classes from './form.module.css';
 import { AnimalContext } from '..';
-
-const images = {
-  arrayOne: [
-    'assets/images/animal-1.jpg',
-    'assets/images/animal-2.jpg',
-    'assets/images/animal-3.jpg',
-  ],
-  arrayTwo: [
-    'assets/images/animal-5.jpg',
-    'assets/images/animal-7.jpg',
-    'assets/images/animal-16.jpeg',
-    'assets/images/animal-8.jpg',
-  ],
-  arrayThree: [
-    'assets/images/animal-9.jpeg',
-    'assets/images/animal-10.jpeg',
-    'assets/images/animal-11.jpeg',
-  ],
-};
+import Validate from '../../../libs/utils/validate';
+import images from '../../../libs/data/animal_images';
+import classes from './form.module.css';
 
 const FormAndResponse = () => {
   const { animal, setAnimal } = useContext(AnimalContext);
@@ -60,16 +43,7 @@ const FormAndResponse = () => {
         });
       }
     } else {
-      if (inputValue.length > 20) {
-        setValidationError('Please enter at most 20 characters');
-        return;
-      } else if (inputValue.length < 2) {
-        setValidationError('Please enter at least 2 characters');
-        return;
-      } else if (!inputValue.match(/^[a-zA-Z]+$/)) {
-        setValidationError('Please enter a valid name');
-        return;
-      }
+      setValidationError(Validate(inputValue, setValidationError));
     }
   };
 
