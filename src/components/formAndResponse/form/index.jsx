@@ -17,7 +17,7 @@ const FormAndResponse = () => {
     if (
       inputValue.length > 2 &&
       inputValue.length < 20 &&
-      inputValue.match(/^[a-zA-Z]+$/)
+      inputValue.match(/^[a-zA-Z\s]+$/)
     ) {
       try {
         const randomWords = await fetch(
