@@ -6,7 +6,8 @@
     --primary-text-color: #fff;
     --purple-gradient: linear-gradient(90deg, #BC60E7 0%, #5A3BB9 100%);
     --blue-gradient: linear-gradient(90deg, #007bff 0%, #00BFFF 100%);
-    --box-show-purple-glow: #bc60e737;
+    --box-show-purple-glow: #bc60e79b;
+    --box-show-purple-glow-brighter: #bc60e76f;
     /* black[#101010] to purple[#c763ec] gradient from outside to inside */
     --black-purple-gradient: radial-gradient(circle, #28153A 0%, #101010 100%);
 }
@@ -17,6 +18,13 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px 30px 0 30px;
+    padding: 6vw 3vw 0 3vw;
     overflow: hidden;
 }
+
+
+@media  screen and (max-width: 1100px){
+    body{
+      overflow: auto;
+    }
+  }

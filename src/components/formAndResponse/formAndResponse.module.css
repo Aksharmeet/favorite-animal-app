@@ -4,17 +4,32 @@
     justify-content: center;
     gap: 4vw;
     background: var(--black-purple-gradient);
-    padding-block: 5vw;
-    width: 100vw;
+    width: 100%;
 }
 .form_response_container_inner_wrapper{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2vw;
-    padding: 3vw;
+    padding: 3vw 3vw;
     background: var(--tertiary-color);
     box-shadow: 0 0 200px 2px var(--box-show-purple-glow);
     border-radius: 10px;
-    width: 70vw;
+    width: 80%;
+}
+@media  screen and (max-width: 1100px){
+    .form_response_container_inner_wrapper{
+        flex-direction: column;
+        padding: 5vw
+    }
+
+}
+
+@media  screen and (max-width: 860px){
+    .form_response_container_inner_wrapper{
+        flex-direction: column;
+        padding: 5vw 0vw;
+        width: 100%;
+    }
+
 }

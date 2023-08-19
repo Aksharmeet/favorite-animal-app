@@ -1,39 +1,78 @@
+import { useContext, useState } from 'react';
 import classes from './form.module.css';
+import { AnimalContext } from '..';
 
-const index = () => {
-  const images = {
-    arrayOne: [
-      'assets/images/animal-1.jpg',
-      'assets/images/animal-2.jpg',
-      'assets/images/animal-3.jpg',
-    ],
-    arrayTwo: [
-      'assets/images/animal-5.jpg',
+const images = {
+  arrayOne: [
+    'assets/images/animal-1.jpg',
+    'assets/images/animal-2.jpg',
+    'assets/images/animal-3.jpg',
+  ],
+  arrayTwo: [
+    'assets/images/animal-5.jpg',
+    'assets/images/animal-7.jpg',
+    'assets/images/animal-16.jpeg',
+    'assets/images/animal-8.jpg',
+  ],
+  arrayThree: [
+    'assets/images/animal-9.jpeg',
+    'assets/images/animal-10.jpeg',
+    'assets/images/animal-11.jpeg',
+  ],
+};
 
-      'assets/images/animal-7.jpg',
-      'assets/images/animal-16.jpeg',
-      'assets/images/animal-8.jpg',
-    ],
-    arrayThree: [
-      'assets/images/animal-9.jpeg',
-      'assets/images/animal-10.jpeg',
-      'assets/images/animal-11.jpeg',
-    ],
-  };
+const FormAndResponse = () => {
+  const { animal, setAnimal } = useContext(AnimalContext);
+  const [validationError, setValidationError] = useState('');
 
   const submitEventHandler = async event => {
     event.preventDefault();
+
     const input = document.getElementById('animal');
     const inputValue = input.value;
-    const link = `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_GOOGLE_SEARCH_KEY}&cx=${process.env.REACT_APP_CSE}&q=${inputValue}`;
 
-    try {
-      const { data } = await fetch(link);
-      console.log(data);
-    } catch (err) {
-      console.log(err);
+    if (
+      inputValue.length > 2 &&
+      inputValue.length < 20 &&
+      inputValue.match(/^[a-zA-Z]+$/)
+    ) {
+      try {
+        const randomWords = await fetch(
+          'https://random-word-api.herokuapp.com/word?number=1',
+        ).then(res => res.json());
+        const randomWord = randomWords[0];
+
+        const link = `https://www.googleapis.com/customsearch/v1?key=${
+          process.env.REACT_APP_GOOGLE_SEARCH_KEY
+        }&cx=${process.env.REACT_APP_CSE}&searchType=image&q=${
+          inputValue + ' ' + randomWord + ' animal'
+        }`;
+
+        const { items } = await fetch(link).then(res => res.json());
+        setAnimal({
+          ...animal,
+          image: items[Math.floor(Math.random() * 10)].link,
+        });
+      } catch (err) {
+        setAnimal({
+          ...animal,
+          error: 'Something went wrong, please try again later',
+        });
+      }
+    } else {
+      if (inputValue.length > 20) {
+        setValidationError('Please enter at most 20 characters');
+        return;
+      } else if (inputValue.length < 2) {
+        setValidationError('Please enter at least 2 characters');
+        return;
+      } else if (!inputValue.match(/^[a-zA-Z]+$/)) {
+        setValidationError('Please enter a valid name');
+        return;
+      }
     }
   };
+
   return (
     <section className={classes.form_container}>
       <form className={classes.form} onSubmit={e => submitEventHandler(e)}>
@@ -45,13 +84,20 @@ const index = () => {
             id="animal"
             type="text"
             placeholder="Name"
+            min="2"
+            max="20"
             className={classes.form_input}
           />
           <button type="submit" className={classes.form_submit}>
-            <img src="/assets/svg/search-icon.svg" alt="search icon" />
+            Generate Image
           </button>
         </div>
       </form>
+      {validationError ? (
+        <p className={classes.error}>{validationError}</p>
+      ) : (
+        <p className={`${classes.error} ${classes.hidden}`}></p>
+      )}
       <div className={classes.grid_container}>
         <div className={classes.column}>
           {images.arrayOne.map((image, index) => (
@@ -73,4 +119,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default FormAndResponse;
