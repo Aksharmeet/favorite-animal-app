@@ -35,6 +35,7 @@ const FormAndResponse = () => {
         setAnimal({
           ...animal,
           image: items[Math.floor(Math.random() * 10)].link,
+          searchQuery: inputValue + ' ' + randomWord + ' animal',
         });
       } catch (err) {
         setAnimal({

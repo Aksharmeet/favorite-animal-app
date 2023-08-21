@@ -7,9 +7,15 @@ const Response = () => {
   return (
     <div className={classes.image_container}>
       {animal.image ? (
-        <img src={animal.image} alt="animal" />
+        <>
+          <p className={classes.search_query_text}>{animal.searchQuery}</p>
+          <img src={animal.image} alt="animal" />
+        </>
       ) : (
-        <img src="assets/images/animal-16.jpeg" alt="animal-16" />
+        <>
+          <p className={classes.search_query_text}>Zebra tall farm</p>
+          <img src="assets/images/animal-16.jpeg" alt="animal-16" />
+        </>
       )}
     </div>
   );

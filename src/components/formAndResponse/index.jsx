@@ -10,6 +10,7 @@ const FormAndResponse = () => {
   const [animal, setAnimal] = useState({
     image: '',
     error: '',
+    searchQuery: '',
   });
 
   return (
